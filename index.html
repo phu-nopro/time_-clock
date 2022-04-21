@@ -1,0 +1,84 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> time lock</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div id="time">
+        <div class="circle" style="--clr: red;">
+            <div class="dost hr_dot"></div>
+            <svg>
+                <circle cx="70" cy="70" r="70"></circle>
+                <circle cx="70" cy="70" r="70" id="hh"></circle>
+            </svg>
+            <div id="hours">00</div>
+        </div>
+        <div class="circle" style="--clr: rgb(255, 217, 0);">
+            <div class="dost mn_dot"></div>
+            <svg>
+                <circle cx="70" cy="70" r="70"></circle>
+                <circle cx="70" cy="70" r="70" id="mm"></circle>
+            </svg>
+            <div id="minutes">00</div>
+        </div>
+        <div class="circle" style="--clr: rgb(47, 85, 209);">
+            <div class="dost sc_dot"></div>
+            <svg>
+                <circle cx="70" cy="70" r="70"></circle>
+                <circle cx="70" cy="70" r="70" id="ss"></circle>
+            </svg>
+            <div id="seconds">00</div>
+        </div>
+        <div class="ap">
+            <div id="ampm">pm</div>
+        </div>
+    </div>
+    <script>
+        setInterval(() => {
+            let hours = document.getElementById('hours');
+            let minutes = document.getElementById('minutes');
+            let seconds = document.getElementById('seconds');
+            let apmp = document.getElementById('ampm');
+
+            let hh = document.getElementById('hh')
+            let mm = document.getElementById('mm')
+            let ss = document.getElementById('ss')
+
+            let hr_dot = document.querySelector('.hr_dot');
+            let mn_dot = document.querySelector('.mn_dot');
+            let sc_dot = document.querySelector('.sc_dot');
+
+            let h = new Date().getHours();
+            let m = new Date().getMinutes();
+            let s = new Date().getSeconds();
+            let am = (h <= 12) ? "AM" : "PM";
+
+            if (h > 12) {
+                h = h - 12;
+            }
+            h = (h < 10) ? ("0" + h) : h;
+            m = (m < 10) ? ("0" + m) : m;
+            s = (s < 10) ? ("0" + s) : s;
+            hours.innerHTML = h;
+            minutes.innerHTML = m;
+            seconds.innerHTML = s;
+            apmp.innerHTML = am;
+            hh.style.strokeDashoffset = 440 - (440 * h) / 12;
+            mm.style.strokeDashoffset = 440 - (440 * m) / 60;
+            ss.style.strokeDashoffset = 440 - (440 * s) / 60;
+
+            hr_dot.style.transform = `rotate(${h * 30}deg)`;
+            mn_dot.style.transform = `rotate(${m * 6}deg)`;
+            sc_dot.style.transform = `rotate(${s * 6}deg)`;
+        })
+
+    </script>
+
+</body>
+
+</html>
